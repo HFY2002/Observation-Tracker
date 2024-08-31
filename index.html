@@ -26,7 +26,7 @@
           <img src="logo.png" height="50" width="50" all="website logo" />
           <h1>Fun facts</h1>
         </div>
-        <button>Share Fact</button>
+        <button class="btn btn-large">Share Fact</button>
       </header>
 
       <form class="fact-form">
@@ -39,19 +39,29 @@
           <option value="Science">Science</option>
           <option value="Finance">Finance</option>
         </select>
-        <button>Post</button>
+        <button class="btn btn-large">Post</button>
       </form>
       <main class="main">
         <aside>
           <ul>
             <li>
-              <button>All</button>
+              <button class="btn btn-all-categories">All</button>
             </li>
-            <li>
-              <button>Technology</button>
+            <li class="category">
+              <button
+                class="btn btn-category"
+                style="background-color: #3b82f6"
+              >
+                Technology
+              </button>
             </li>
-            <li>
-              <button>Science</button>
+            <li class="category">
+              <button
+                class="btn btn-category"
+                style="background-color: #16a34a"
+              >
+                Science
+              </button>
             </li>
           </ul>
         </aside>
@@ -61,15 +71,18 @@
             <li class="fact">
               <p>
                 React is being developed by Meta (formerly facebook)
-                <a href="https://opensource.fb.com/" target="_blank"
+                <a
+                  class="source"
+                  href="https://opensource.fb.com/"
+                  target="_blank"
                   >(source info)</a
                 >
                 <span class="tag" style="background-color: #3b82f6">tech</span>
               </p>
               <div class="vote-buttons">
-                <button>❤️<strong>0</strong></button>
-                <button>😧<stong>0</stong></button>
-                <button>😣<strong>0</strong></button>
+                <button>❤️0</button>
+                <button>😧0</button>
+                <button>😣0</button>
               </div>
             </li>
             <li class="fact">
@@ -78,6 +91,7 @@
                 their fathers spent with them. In 1982, 43% of fathers had never
                 changed a diaper. Today, that number is down to 3%
                 <a
+                  class="source"
                   href="https://www.mother.ly/parenting/millennial-dads-spend-more-time-with-their-kids"
                   target="_blank"
                   >(source info)</a
@@ -87,9 +101,9 @@
                 >
               </p>
               <div class="vote-buttons">
-                <button>❤️<strong>0</strong></button>
-                <button>😧<strong>0</strong></button>
-                <button>😣<strong>0</strong></button>
+                <button>❤️0</button>
+                <button>😧0</button>
+                <button>😣0</button>
               </div>
             </li>
           </ul>

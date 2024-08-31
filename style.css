@@ -44,8 +44,37 @@ body {
 
 .fact-form {
   margin: 10px;
+  padding: 10px;
   background-color: #4e4e52;
   text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 10px;
+}
+
+.fact-form input,
+.fact-form select {
+  background-color: #78716c;
+  border: none;
+  border-radius: 100px;
+  padding: 16px;
+  font-size: 18px;
+  color: inherit;
+  font-family: inherit;
+}
+
+.fact-form span {
+  font-size: 18px;
+  margin: 5px 10px;
+}
+
+.fact-form input::placeholder {
+  color: inherit;
+}
+
+.fact-form input:first-child {
+  flex-grow: 1;
 }
 
 h1 {
@@ -56,31 +85,121 @@ h1 {
   color: #8222c2;
 }
 
+.category {
+  margin: 15px 0px;
+}
+
 .fact {
   font-size: 20px;
   line-height: 1.5;
   color: aliceblue;
   background-color: #4e4e52;
+  margin-left: 16px;
   margin-bottom: 16px;
   padding: 12px 24px;
   padding-top: 15px;
   display: flex;
   align-items: center;
   gap: 24px;
+  border-radius: 10px;
 }
-
+@media (max-width: 1200px) {
+  .fact {
+    background-color: red;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+}
 .tag {
   font-size: 14px;
   text-transform: uppercase;
   font-family: coiny;
   color: aliceblue;
   padding: 6px 12px;
+  border-radius: 100px;
 }
 
 .vote-buttons {
+  flex-shrink: 0;
   margin: auto;
+  display: flex;
+}
+
+.vote-buttons button {
+  border-radius: 100px;
+  border: none;
+  background-color: #78716c;
+  font-size: 18px;
+  padding: 6px 12px;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.vote-buttons button:hover {
+  background-color: #2f2f31;
 }
 
 ul {
   list-style: none;
 }
+
+.source:link,
+.source:visited {
+  color: grey;
+  text-decoration: none; /*removes the underline from hyperlink*/
+  transition: 0.2s; /*makes the color change smoother*/
+}
+
+.source:hover {
+  color: blue;
+}
+
+.btn {
+  border-radius: 100px;
+  border: none;
+  font-family: Coiny;
+  line-height: 1;
+  font-size: 17px;
+  padding: 16px 0px 13px;
+  background-image: linear-gradient(135deg, blue, red, green, yellow);
+  color: inherit;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: scale(110%) rotate(-2deg);
+}
+
+.btn-large {
+  font-size: 20px;
+  padding: 20px 32px 17px;
+}
+
+.btn-all-categories {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.btn-category {
+  width: 100%;
+  background-image: None;
+}
+
+@media (max-width: 1200px) {
+  body {
+    padding: 32px 48px;
+  }
+  .fact-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fact-form input,
+  .fact-form select {
+    width: auto;
+  }
+}
+/*if screen <= 1200*/
