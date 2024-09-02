@@ -26,10 +26,10 @@
           <img src="logo.png" height="50" width="50" all="website logo" />
           <h1>Fun facts</h1>
         </div>
-        <button class="btn btn-large">Share Fact</button>
+        <button class="btn btn-large btn-open">Share Fact</button>
       </header>
 
-      <form class="fact-form">
+      <form class="fact-form hidden">
         <input type="text" placeholder="share your new knowledge" />
         <span>200</span>
         <input type="text" placeholder="source?" />
@@ -67,7 +67,7 @@
         </aside>
 
         <section>
-          <ul>
+          <ul class="facts-list">
             <li class="fact">
               <p>
                 React is being developed by Meta (formerly facebook)
@@ -110,5 +110,6 @@
         </section>
       </main>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
