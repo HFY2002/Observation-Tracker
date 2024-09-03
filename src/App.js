@@ -46,37 +46,30 @@ const CATEGORIES = [
 ];
 //Build React App
 //all files  and images go into public folder
-function Counter() {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <span style={{ fontSize: "40px" }}>{count}</span>
-      <button
-        className="btn btn-large"
-        onClick={
-          () => setCount((count) => count + 1)
-          //console.log(count)
-        }
-      >
-        +1
-      </button>
-    </div>
-  );
-}
+// function Counter() {
+//   const [count, setCount] = useState(0);
+//   return (
+//     <div>
+//       <span style={{ fontSize: "40px" }}>{count}</span>
+//       <button
+//         className="btn btn-large"
+//         onClick={
+//           () => setCount((count) => count + 1)
+//           //console.log(count)
+//         }
+//       >
+//         +1
+//       </button>
+//     </div>
+//   );
+// }
 function App() {
-  const title = "Share Facts";
+  const [showForm, setShowForm] = useState(false);
   return (
     <>
       {/* whatever gets returned below is what gets displayed. Also this is JSX, not HTML. JSX only has one parent element */}
-      <header class="header">
-        <div class="logo">
-          <img src="logo.png" height="50" width="50" all="website logo" />
-          <h1>{title}</h1>
-        </div>
-        <button class="btn btn-large btn-open">Share Fact</button>
-      </header>
-      <Counter />
-      <NewFactForm />
+      <Header showForm={showForm} setShowForm={setShowForm} />
+      {showForm ? <NewFactForm /> : null}
       <main className="main">
         <CategoryFilter />
         <FactList />
@@ -85,8 +78,58 @@ function App() {
   );
 }
 
+function Header({ showForm, setShowForm }) {
+  const title = "Share Facts";
+  return (
+    <header className="header">
+      <div className="logo">
+        <img src="logo.png" height="50" width="50" all="website logo" />
+        <h1>{title}</h1>
+      </div>
+      <button
+        className="btn btn-large btn-open"
+        onClick={() => setShowForm((showForm) => !showForm)}
+      >
+        {showForm ? "Close" : "Share a fact"}
+      </button>
+    </header>
+  );
+}
+
 function NewFactForm() {
-  return <form className="fact-form"> Fact Form</form>;
+  const [text, setText] = useState("");
+  const [source, setSource] = useState("");
+  const [category, setCategory] = useState("");
+  const textLen = text.length;
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(text, source, category);
+  }
+
+  return (
+    <form className="fact-form" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="share your observation for today"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <span>{200 - textLen}</span>
+      <input
+        type="text"
+        placeholder="source?"
+        value={source}
+        onChange={(e) => setSource(e.target.value)}
+      />
+      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <option value="">Choose Option:</option>
+        {CATEGORIES.map((cat) => (
+          <option value={cat.name}>{cat.name}</option>
+        ))}
+      </select>
+      <button class="btn btn-large">Post</button>
+    </form>
+  );
 }
 
 function CategoryFilter() {
@@ -103,30 +146,8 @@ function CategoryFilter() {
             </button>
           </li>
         ))}
-
-        {/* <li className="category">
-          <button
-            className="btn btn-category"
-            style={{ backgroundColor: "#3b82f6" }}
-          >
-            technology
-          </button>
-        </li> */}
       </ul>
     </aside>
-  );
-}
-
-function Category({ cat }) {
-  return (
-    <li className="category">
-      <button
-        className="btn btn-category"
-        style={{ backgroundColor: "#3b82f6" }}
-      >
-        {cat.name}
-      </button>
-    </li>
   );
 }
 
