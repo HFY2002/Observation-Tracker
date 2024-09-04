@@ -1,5 +1,6 @@
 import "./style.css";
-import { useState } from "react";
+import supabase from "./supabase";
+import { useEffect, useState } from "react";
 
 const initialFacts = [
   {
@@ -46,33 +47,29 @@ const CATEGORIES = [
 ];
 //Build React App
 //all files  and images go into public folder
-// function Counter() {
-//   const [count, setCount] = useState(0);
-//   return (
-//     <div>
-//       <span style={{ fontSize: "40px" }}>{count}</span>
-//       <button
-//         className="btn btn-large"
-//         onClick={
-//           () => setCount((count) => count + 1)
-//           //console.log(count)
-//         }
-//       >
-//         +1
-//       </button>
-//     </div>
-//   );
-// }
+
 function App() {
   const [showForm, setShowForm] = useState(false);
+  const [facts, setFacts] = useState(initialFacts);
+
+  useEffect(function () {
+    async function getFacts() {
+      const { data: facts, error } = await supabase.from("facts").select("*");
+      setFacts(facts);
+    }
+    getFacts();
+  }, []);
+
   return (
     <>
       {/* whatever gets returned below is what gets displayed. Also this is JSX, not HTML. JSX only has one parent element */}
       <Header showForm={showForm} setShowForm={setShowForm} />
-      {showForm ? <NewFactForm /> : null}
+      {showForm ? (
+        <NewFactForm setFacts={setFacts} setShowForm={setShowForm} />
+      ) : null}
       <main className="main">
         <CategoryFilter />
-        <FactList />
+        <FactList facts={facts} />
       </main>
     </>
   );
@@ -96,14 +93,35 @@ function Header({ showForm, setShowForm }) {
   );
 }
 
-function NewFactForm() {
+function NewFactForm({ setFacts, setShowForm }) {
   const [text, setText] = useState("");
   const [source, setSource] = useState("");
   const [category, setCategory] = useState("");
   const textLen = text.length;
   function handleSubmit(e) {
+    //prevent refresh
     e.preventDefault();
     console.log(text, source, category);
+    //data valid?
+    if (text && source && category && text.length <= 200) console.log("Click");
+    //new fact obj
+    const newFact = {
+      id: Math.random,
+      text: text,
+      category: category,
+      votesInteresting: 0,
+      votesMindblowing: 0,
+      votesFalse: 0,
+      createdIn: new Date().getFullYear(),
+    };
+    //add fact to UI
+    setFacts((facts) => [newFact, ...facts]);
+    //reset input
+    setText("");
+    setSource("");
+    setCategory("");
+    //close form
+    setShowForm(false);
   }
 
   return (
@@ -155,14 +173,12 @@ function findcolor(category) {
   return CATEGORIES.find((cat) => cat.name === category).color;
 }
 
-function FactList() {
-  const data = initialFacts;
-
+function FactList({ facts }) {
   return (
     <section>
       <ul className="facts-list">
-        {data.map((datum) => (
-          <Fact factObj={datum} />
+        {facts.map((datum) => (
+          <Fact key={datum.id} factObj={datum} />
         ))}
       </ul>
     </section>
@@ -174,11 +190,11 @@ function Fact({ factObj }) {
     <li key={factObj.id} className="fact">
       <p>
         {factObj.text}
-        <a class="source" href={factObj.source} target="_blank">
+        <a className="source" href={factObj.source} target="_blank">
           (source info)
         </a>
         <span
-          class="tag"
+          className="tag"
           style={{ backgroundColor: findcolor(factObj.category) }}
         >
           {factObj.category}
